@@ -1,5 +1,3 @@
-#include <stdbool.h>
-
 int processPlusHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]); 
 void wordinator(int n, char* res);
 int processSubHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]);
