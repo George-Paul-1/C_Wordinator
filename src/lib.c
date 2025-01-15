@@ -1,7 +1,8 @@
 #include <stdbool.h>
 
-int processHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]); 
+int processPlusHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]); 
 void wordinator(int n, char* res);
+int processSubHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]);
 
 void wordinator(int n, char* res) {
   char *ones[] = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
@@ -12,52 +13,53 @@ void wordinator(int n, char* res) {
     strcpy(res, "zero");
     return;
   }
-
-  if (n >= 10000) {
-    n = processHundredThousands(n, res, ones, tens, teens);
-  }
-
-  if (n >= 1000) {      
-      strcat(res, ones[n / 1000]);
-      strcat(res, " thousand");
-      n = n % 1000;
-    
-    if (n > 99) {
-      strcat(res, " ");
-    } else if (n > 0) {
-      strcat(res, " and ");
-    }
-  }
-  
-  if (n >= 100) {
-    strcat(res, ones[n / 100]);
-    strcat(res, " hundred");
-    n = n % 100;
-    if (n > 0) {
-      strcat(res, " and ");
-    }
-  }
-  
-  if (n == 0) {
-    return;
-  }
-
-  if (n >= 20 || n == 10) {
-    strcat(res, tens[n/10]);
-    n = n % 10;
-    if (n > 0) {
-      strcat(res, " ");
-    }
-  }
-
-  if (n / 10 > 0) { 
-    strcat(res, teens[n % 10]);
-  } else if (n != 0) { 
-    strcat(res, ones[n]);
-  }
+  n = processPlusHundredThousands(n, res, ones, tens, teens);
+  n = processSubHundredThousands(n, res, ones, tens, teens);
 }
 
-int processHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]) { 
+int processSubHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]) {
+  if (n >= 1000) {      
+        strcat(res, ones[n / 1000]);
+        strcat(res, " thousand");
+        n = n % 1000;
+      
+      if (n > 99) {
+        strcat(res, " ");
+      } else if (n > 0) {
+        strcat(res, " and ");
+      }
+    }
+    
+    if (n >= 100) {
+      strcat(res, ones[n / 100]);
+      strcat(res, " hundred");
+      n = n % 100;
+      if (n > 0) {
+        strcat(res, " and ");
+      }
+    }
+    
+    if (n == 0) {
+      return n;
+    }
+
+    if (n >= 20 || n == 10) {
+      strcat(res, tens[n/10]);
+      n = n % 10;
+      if (n > 0) {
+        strcat(res, " ");
+      }
+    }
+
+    if (n / 10 > 0) { 
+      strcat(res, teens[n % 10]);
+    } else if (n != 0) { 
+      strcat(res, ones[n]);
+    }
+    return n;
+}
+
+int processPlusHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]) { 
   if (n >= 100000) {
     strcat(res, ones[n / 100000]);
     strcat(res, " hundred");
