@@ -8,7 +8,6 @@ void wordinator(int n, char* res) {
   char *ones[] = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
   char *tens[] = {"", "ten", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"};
   char *teens[] = {"", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "seventeen", "eighteen", "nineteen"};
-
   if (n == 0) {
     strcpy(res, "zero");
     return;
