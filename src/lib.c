@@ -1,36 +1,7 @@
 #include <stdbool.h>
 
-int processHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]) { 
-  if (n >= 100000) {
-    strcat(res, ones[n / 100000]);
-    strcat(res, " hundred");
-    n = n % 100000;
-    if (n > 0) {
-      strcat(res, " and ");
-    } else {
-      strcat(res, " thousand");
-    }
-  } 
-  if (n >= 10000) {
-      if (n % 10000 >= 1000 && n < 20000) {
-        strcat(res, teens[n / 10000]);
-      } else {
-        strcat(res, tens[n / 10000]);
-      }
-      if (n % 10000 >= 1000 && n > 20000) {
-        strcat(res, " ");
-        strcat(res, ones[(n % 10000) / 1000]);
-      }
-      strcat(res, " thousand");
-      n = n % 1000;
-      if (n > 99) {
-        strcat(res, " ");
-      } else if (n > 0) {
-        strcat(res, " and ");
-      }
-    }
-  return n;
-}
+int processHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]); 
+void wordinator(int n, char* res);
 
 void wordinator(int n, char* res) {
   char *ones[] = {"", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"};
@@ -78,10 +49,42 @@ void wordinator(int n, char* res) {
       strcat(res, " ");
     }
   }
-  
+
   if (n / 10 > 0) { 
     strcat(res, teens[n % 10]);
   } else if (n != 0) { 
     strcat(res, ones[n]);
   }
+}
+
+int processHundredThousands(int n, char* res, char* ones[], char* tens[], char* teens[]) { 
+  if (n >= 100000) {
+    strcat(res, ones[n / 100000]);
+    strcat(res, " hundred");
+    n = n % 100000;
+    if (n > 0) {
+      strcat(res, " and ");
+    } else {
+      strcat(res, " thousand");
+    }
+  } 
+  if (n >= 10000) {
+      if (n % 10000 >= 1000 && n < 20000) {
+        strcat(res, teens[n / 10000]);
+      } else {
+        strcat(res, tens[n / 10000]);
+      }
+      if (n % 10000 >= 1000 && n > 20000) {
+        strcat(res, " ");
+        strcat(res, ones[(n % 10000) / 1000]);
+      }
+      strcat(res, " thousand");
+      n = n % 1000;
+      if (n > 99) {
+        strcat(res, " ");
+      } else if (n > 0) {
+        strcat(res, " and ");
+      }
+    }
+  return n;
 }
